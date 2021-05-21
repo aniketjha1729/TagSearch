@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container create-container">
   <div class="row">
     <div class="col-6">
       <div class="card text-center">
@@ -41,30 +41,6 @@
             </button>
           </form>
         </div>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="card text-center">
-        <div class="card-header">All Post</div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Content</th>
-              <th scope="col">Tags</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let post of postService.posts">
-              <td> {{ post.content }}</td>
-              <td>{{post.tags}}</td>
-              <td>
-                <i class="fas fa-edit fa-1x" (click)="onEdit(post)"></i>&nbsp;&nbsp;&nbsp;
-                <i class="fas fa-trash-alt fa-1x" (click)="onDelete(post._id,postForm)"></i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>

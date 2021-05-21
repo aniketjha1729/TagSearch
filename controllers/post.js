@@ -1,9 +1,7 @@
 const Post = require("../models/post");
-const Tag = require("../models/tags");
 
 exports.createPost = (req, res) => {
   const { tags, content } = req.body;
-  console.log(tags, content);
   const newPost = new Post({
     content,
     tags: Array.isArray(tags)

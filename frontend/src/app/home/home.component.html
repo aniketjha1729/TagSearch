@@ -1,0 +1,38 @@
+<div class="container data-table">
+  <div class="row">
+    <div class="col search-column">
+      <form class="form-inline my-2 my-lg-0">
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Filter Post by Tag"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          Filter
+        </button>
+      </form>
+    </div>
+  </div>
+  <br />
+  <table class="table table-striped table-bordered text-center">
+    <thead>
+      <tr>
+        <th scope="col">Content</th>
+        <th scope="col">Tags</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let post of postService.posts">
+        <td>{{ post.content }}</td>
+        <td>{{ post.tags }}</td>
+        <td>
+          <i class="fas fa-edit fa-1x" [routerLink]="['/edit', post._id]"></i
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <i class="fas fa-trash-alt fa-1x" (click)="onDelete(post._id)"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

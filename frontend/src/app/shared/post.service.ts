@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
 import {Post} from "./post.model"
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +24,9 @@ export class PostService {
 
   deletePost(_id:string){
     return this.http.delete(`${this.baseUrl}delete/${_id}`)
+  }
+
+  getPostByTag(tags:string){
+    return this.http.get(`${this.baseUrl}`)
   }
 }
