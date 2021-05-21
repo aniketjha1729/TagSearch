@@ -42,22 +42,44 @@ exports.getPostById = (req, res) => {
   });
 };
 
+// exports.editPost = (req, res) => {
+//   const { editTag, content } = req.body;
+//   Post.findByIdAndUpdate(
+//     req.params.postId,
+//     {
+//       $pull: { tags: editTag },
+//       content: content,
+//     },
+//     {
+//       new: true,
+//     },
+//     (err, result) => {
+//       if (err) {
+//         return res.status(500).json({ msg: "Server Error" });
+//       }
+//       return res.status(200).json(result);
+//     }
+//   );
+// };
+
 exports.editPost = (req, res) => {
-  const { editTag, content } = req.body;
+  const { tags, content } = req.body;
+  let editedPost = {
+    content,
+    tags: Array.isArray(tags)
+      ? tags
+      : tags.split(",").map((tags) => tags.trim()),
+  };
   Post.findByIdAndUpdate(
     req.params.postId,
-    {
-      $pull: { tags: editTag },
-      content: content,
-    },
-    {
-      new: true,
-    },
-    (err, result) => {
-      if (err) {
+    { $set: editedPost },
+    { new: true },
+    (err, post) => {
+      if (!err) {
+        return res.status(200).json(post);
+      } else {
         return res.status(500).json({ msg: "Server Error" });
       }
-      return res.status(200).json(result);
     }
   );
 };
