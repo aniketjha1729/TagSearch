@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="card text-center">
+        <div class="card-header">Create Post</div>
+        <div class="card-body">
+          <form #postForm="ngForm" (submit)="onSubmit(postForm)">
+            <div class="form-group">
+              <label for="content">Content</label>
+              <input
+                type="text"
+                class="form-control"
+                name="content"
+                #content="ngModel"
+                [ngModel]="selectedPost.content"
+                placeholder="Write Something here"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Tags</label>
+              <input
+                type="text"
+                class="form-control"
+                name="tags"
+                #tags="ngModel"
+                [ngModel]="selectedPost.tags"
+                placeholder="Add Tags"
+              />
+              <p id="emailHelp" class="form-text text-muted">
+                Separate tags with ","(comma). eg: wecp,exam,online
+              </p>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button
+            >&nbsp;&nbsp;&nbsp;&nbsp;
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="resetForm(postForm)"
+            >
+              Reset
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card text-center">
+        <div class="card-header">All Post</div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Content</th>
+              <th scope="col">Tags</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post of postService.posts">
+              <td> {{ post.content }}</td>
+              <td>{{post.tags}}</td>
+              <td>
+                <i class="fas fa-edit fa-1x" (click)="onEdit(post)"></i>&nbsp;&nbsp;&nbsp;
+                <i class="fas fa-trash-alt fa-1x" (click)="onDelete(post._id,postForm)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

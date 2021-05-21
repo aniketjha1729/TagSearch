@@ -3,6 +3,7 @@ const Tag = require("../models/tags");
 
 exports.createPost = (req, res) => {
   const { tags, content } = req.body;
+  console.log(tags, content);
   const newPost = new Post({
     content,
     tags: Array.isArray(tags)
@@ -42,26 +43,6 @@ exports.getPostById = (req, res) => {
   });
 };
 
-// exports.editPost = (req, res) => {
-//   const { editTag, content } = req.body;
-//   Post.findByIdAndUpdate(
-//     req.params.postId,
-//     {
-//       $pull: { tags: editTag },
-//       content: content,
-//     },
-//     {
-//       new: true,
-//     },
-//     (err, result) => {
-//       if (err) {
-//         return res.status(500).json({ msg: "Server Error" });
-//       }
-//       return res.status(200).json(result);
-//     }
-//   );
-// };
-
 exports.editPost = (req, res) => {
   const { tags, content } = req.body;
   let editedPost = {
@@ -82,4 +63,14 @@ exports.editPost = (req, res) => {
       }
     }
   );
+};
+
+exports.deletePost = (req, res) => {
+  Post.findByIdAndRemove(req.params.postId, (err, delPost) => {
+    if (!err) {
+      return res.status(200).json({ msg: "Deletion Successful" });
+    } else {
+      return res.status(500).json({ msg: "Server Error" });
+    }
+  });
 };
