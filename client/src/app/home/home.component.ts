@@ -35,13 +35,12 @@ export class HomeComponent implements OnInit {
 
   //Filtering data by tags
   onFind(tagInput:HTMLInputElement){
-   console.log(tagInput.value);
    this.postService.getPostByTag(tagInput.value).subscribe((res)=>{
     this.postService.posts=res as Post[]
    })
   }
 
-  //Getting All uniuqe tags
+  //Getting All unique tags
   getAllTags(){
     const uniqueTags= new Set()
     this.postService.getAllTags().subscribe((res:any)=>{
