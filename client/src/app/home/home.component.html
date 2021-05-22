@@ -24,9 +24,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let post of postService.posts">
-        <td>{{ post.content }}</td>
-        <td>{{ post.tags }}</td>
-        <td>
+        <td style="width: 500px;">{{ post.content }}</td>
+        <td style="width: 200px;">{{ post.tags }}</td>
+        <td style="width: 100px;">
           <i class="fas fa-edit fa-1x" [routerLink]="['/edit', post._id]"></i
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <i class="fas fa-trash-alt fa-1x" (click)="onDelete(post._id)"></i>

@@ -36,6 +36,7 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  //Reseting the form after submit:
   resetForm(form?:NgForm){
     if(form){
       form.reset();
@@ -46,7 +47,7 @@ export class PostComponent implements OnInit {
       }
     }
   }
-
+  //Calling the function from (../shared/post.service) to create a new post  
   onSubmit(form:NgForm){
     if(this.mode=="create"){
     this.postService.postPost(form.value).subscribe((res)=>{
@@ -60,7 +61,7 @@ export class PostComponent implements OnInit {
       })
     }
   }
-
+  //Calling the function from (../shared/post.service) to get a specific popst in oder to edit  
   getPostById(id:any){
     this.postService.getPostById(id).subscribe((res:any)=>{ 
       this.selectedPost._id=res._id;
