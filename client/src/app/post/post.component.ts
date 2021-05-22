@@ -5,8 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs'
 import {map} from 'rxjs/operators';
 import {PostService} from "../shared/post.service"
-import {Post} from "../shared/post.model"
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -22,7 +21,7 @@ export class PostComponent implements OnInit {
     content:"",
     
   }
-  constructor(public postService:PostService,route: ActivatedRoute) { 
+  constructor(public postService:PostService,route: ActivatedRoute,public router: Router) { 
     const id: Observable<string> = route.params.pipe(map(p => p.postId));
     id.subscribe((id)=>{
       if(id){
@@ -52,10 +51,12 @@ export class PostComponent implements OnInit {
     if(this.mode=="create"){
     this.postService.postPost(form.value).subscribe((res)=>{
       this.resetForm(form)
-      alert("Successful")
+      alert("New Post Created")
+      this.router.navigate(['/']);
     })}else{
       this.postService.editPost(this.selectedPost._id,form.value).subscribe((res)=>{
         alert("Post Updated Successfully")
+        this.router.navigate(['/']);
       })
     }
   }
@@ -67,5 +68,4 @@ export class PostComponent implements OnInit {
       this.selectedPost.content=res.content;
     })
   }
-
 }
