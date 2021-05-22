@@ -6,6 +6,16 @@
         <div class="card-body">
           <form #postForm="ngForm" (submit)="onSubmit(postForm)">
             <div class="form-group">
+              <input
+                type="hidden"
+                class="form-control"
+                name="_id"
+                #_id="ngModel"
+                [ngModel]="selectedPost._id"
+                placeholder="Write Something here"
+              />
+            </div>
+            <div class="form-group">
               <label for="content">Content</label>
               <input
                 type="text"

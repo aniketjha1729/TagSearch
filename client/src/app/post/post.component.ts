@@ -54,14 +54,10 @@ export class PostComponent implements OnInit {
       this.resetForm(form)
       alert("Successful")
     })}else{
-      console.log("Edit")
+      this.postService.editPost(this.selectedPost._id,form.value).subscribe((res)=>{
+        alert("Post Updated Successfully")
+      })
     }
-  }
-
-
-  onEdit(post:Post){
-    console.log(post);
-    this.postService.selectedPost=post;
   }
 
   getPostById(id:any){
