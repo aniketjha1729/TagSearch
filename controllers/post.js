@@ -1,5 +1,4 @@
 const Post = require("../models/post");
-const Tag = require("../models/tags");
 
 exports.createPost = (req, res) => {
   const { tags, content } = req.body;
@@ -30,8 +29,7 @@ exports.getAllPost = (req, res) => {
 };
 
 exports.getPostByTag = (req, res) => {
-  const { tags } = req.body;
-  Post.find({ tags: { $in: [tags] } }).then((filterPost) => {
+  Post.find({ tags: { $in: [ req.params.tags] } }).then((filterPost) => {
     return res.status(200).json(filterPost);
   });
 };
@@ -41,26 +39,6 @@ exports.getPostById = (req, res) => {
     return res.status(200).json(post);
   });
 };
-
-// exports.editPost = (req, res) => {
-//   const { editTag, content } = req.body;
-//   Post.findByIdAndUpdate(
-//     req.params.postId,
-//     {
-//       $pull: { tags: editTag },
-//       content: content,
-//     },
-//     {
-//       new: true,
-//     },
-//     (err, result) => {
-//       if (err) {
-//         return res.status(500).json({ msg: "Server Error" });
-//       }
-//       return res.status(200).json(result);
-//     }
-//   );
-// };
 
 exports.editPost = (req, res) => {
   const { tags, content } = req.body;
@@ -82,4 +60,14 @@ exports.editPost = (req, res) => {
       }
     }
   );
+};
+
+exports.deletePost = (req, res) => {
+  Post.findByIdAndRemove(req.params.postId, (err, delPost) => {
+    if (!err) {
+      return res.status(200).json({ msg: "Deletion Successful" });
+    } else {
+      return res.status(500).json({ msg: "Server Error" });
+    }
+  });
 };
