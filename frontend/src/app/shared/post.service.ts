@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {Post} from "./post.model"
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +28,6 @@ export class PostService {
   }
 
   getPostByTag(tags:string){
-    return this.http.get(`${this.baseUrl}`)
+    return this.http.get(`${this.baseUrl}getPostByTag/${tags}`)
   }
 }

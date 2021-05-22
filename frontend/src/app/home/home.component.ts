@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+
+
 
 import {PostService} from "../shared/post.service"
 import {Post} from "../shared/post.model"
@@ -11,7 +12,7 @@ import {Post} from "../shared/post.model"
 })
 export class HomeComponent implements OnInit {
 
-  tags=""
+  
   constructor(public postService:PostService) { }
 
   ngOnInit(): void {
@@ -30,7 +31,11 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  onFind(tags:HTMLTextAreaElement){
-    console.log(tags)
+  onFind(tagInput:HTMLInputElement){
+   console.log(tagInput.value);
+   this.postService.getPostByTag(tagInput.value).subscribe((res)=>{
+    this.postService.posts=res as Post[]
+   })
+    
   }
 }

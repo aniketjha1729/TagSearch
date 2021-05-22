@@ -29,8 +29,7 @@ exports.getAllPost = (req, res) => {
 };
 
 exports.getPostByTag = (req, res) => {
-  const { tags } = req.body;
-  Post.find({ tags: { $in: [tags] } }).then((filterPost) => {
+  Post.find({ tags: { $in: [ req.params.tags] } }).then((filterPost) => {
     return res.status(200).json(filterPost);
   });
 };
