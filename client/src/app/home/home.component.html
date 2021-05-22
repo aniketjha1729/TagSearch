@@ -1,9 +1,15 @@
 <div class="container data-table">
   <div class="row">
-    <div class="col search-column">
-      <input #tagInput  type="text"/>
+    <div class="col-4 search-column">
+      <input
+        class="form-control"
+        #tagInput
+        type="text"
+        placeholder="Filter post by tags"
+      />
+      &nbsp;&nbsp;
       <button type="button" class="btn btn-primary" (click)="onFind(tagInput)">
-        Find
+        Filter
       </button>
     </div>
   </div>

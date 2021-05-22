@@ -1,5 +1,7 @@
 const Post = require("../models/post");
 
+//@type:POST
+//@desc:creating Post
 exports.createPost = (req, res) => {
   const { tags, content } = req.body;
   const newPost = new Post({
@@ -18,6 +20,8 @@ exports.createPost = (req, res) => {
     });
 };
 
+//@type:GET
+//@desc:get All Posts
 exports.getAllPost = (req, res) => {
   Post.find()
     .then((posts) => {
@@ -28,18 +32,24 @@ exports.getAllPost = (req, res) => {
     });
 };
 
+//@type:GET
+//@desc:get Posts by specific tagName
 exports.getPostByTag = (req, res) => {
   Post.find({ tags: { $in: [ req.params.tags] } }).then((filterPost) => {
     return res.status(200).json(filterPost);
   });
 };
 
+//@type:GET
+//@desc:get Posts by specific postId
 exports.getPostById = (req, res) => {
   Post.findById(req.params.postId).then((post) => {
     return res.status(200).json(post);
   });
 };
 
+//@type:PUT
+//@desc:edit Post
 exports.editPost = (req, res) => {
   const { tags, content } = req.body;
   let editedPost = {
@@ -62,6 +72,8 @@ exports.editPost = (req, res) => {
   );
 };
 
+//@type:DELETE
+//@desc:delete Post by specific Id
 exports.deletePost = (req, res) => {
   Post.findByIdAndRemove(req.params.postId, (err, delPost) => {
     if (!err) {

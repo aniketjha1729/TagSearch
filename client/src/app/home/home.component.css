@@ -6,5 +6,7 @@
 }
 
 .search-column{
-    margin-left: 410px;
+    display: flex;
+    width: 100px;
+    margin-left: 380px;
 }

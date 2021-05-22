@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs'
+import {map} from 'rxjs/operators';
 import {PostService} from "../shared/post.service"
 import {Post} from "../shared/post.model"
 
@@ -11,17 +14,28 @@ import {Post} from "../shared/post.model"
   providers:[PostService]
 })
 export class PostComponent implements OnInit {
+  mode:any
+  id=""
   selectedPost={
+    tags:[],
     _id:"",
     content:"",
-    tags:[]
+    
   }
-  constructor(public postService:PostService) { }
+  constructor(public postService:PostService,route: ActivatedRoute) { 
+    const id: Observable<string> = route.params.pipe(map(p => p.postId));
+    id.subscribe((id)=>{
+      if(id){
+        this.mode="edit"
+        this.id=id
+      }else{
+        this.mode="create"
+      }
+    })
+    this.getPostById(this.id);
+  }
 
-  ngOnInit(): void {
-    this.resetForm();
-    this.refreshPostList();
-  }
+  ngOnInit(): void {}
 
   resetForm(form?:NgForm){
     if(form){
@@ -35,27 +49,26 @@ export class PostComponent implements OnInit {
   }
 
   onSubmit(form:NgForm){
+    if(this.mode=="create"){
     this.postService.postPost(form.value).subscribe((res)=>{
       this.resetForm(form)
-      this.refreshPostList();
       alert("Successful")
-    })
+    })}else{
+      console.log("Edit")
+    }
   }
 
-  refreshPostList(){
-    this.postService.getAllPost().subscribe((res)=>{
-      this.postService.posts=res as Post[]
-    })
-  }
 
   onEdit(post:Post){
     console.log(post);
     this.postService.selectedPost=post;
   }
 
-  onDelete(_id:string,form:NgForm){
-    this.postService.deletePost(_id).subscribe((res)=>{
-      this.refreshPostList();
+  getPostById(id:any){
+    this.postService.getPostById(id).subscribe((res:any)=>{ 
+      this.selectedPost._id=res._id;
+      this.selectedPost.tags=res.tags;
+      this.selectedPost.content=res.content;
     })
   }
 
