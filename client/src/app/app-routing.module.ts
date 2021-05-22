@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MycomponentComponent } from './mycomponent/mycomponent.component';
+import {HomeComponent} from "./home/home.component"
+import {PostComponent} from "./post/post.component"
 
 const routes: Routes = [
-  { path: 'mycomponent', component: MycomponentComponent },
+  {path:'',component:HomeComponent},
+  { path: 'create', component: PostComponent },
+  { path: 'edit/:postId', component: PostComponent },
 ];
 
 @NgModule({
